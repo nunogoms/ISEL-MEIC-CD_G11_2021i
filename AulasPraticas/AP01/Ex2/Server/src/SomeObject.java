@@ -4,9 +4,9 @@ public class SomeObject implements Serializable {
 
     String id;
     String description;
-    double value;
+    float value;
 
-    public SomeObject(String id, String description, double value) {
+    public SomeObject(String id, String description, float value) {
         this.setId(id);
         this.setDescription(description);
         this.setValue(value);
@@ -20,7 +20,7 @@ public class SomeObject implements Serializable {
         return this.description;
     }
 
-    public double getValue() {
+    public float getValue() {
         return this.value;
     }
 
@@ -32,7 +32,7 @@ public class SomeObject implements Serializable {
         this.description = description;
     }
 
-    public void setValue(double value) {
+    public void setValue(float value) {
         this.value = value;
     }
 
