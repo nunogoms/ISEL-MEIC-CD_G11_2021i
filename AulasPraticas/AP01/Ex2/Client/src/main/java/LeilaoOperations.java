@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class LeilaoOperations {
-    public static ILeiloes ILeilao;
     private static Scanner scanner = new Scanner(System.in);
     private static HashMap<String, SomeObject> notificationsMap = new HashMap<>();
 
@@ -12,11 +11,11 @@ public class LeilaoOperations {
 
     }
 
-    static void licitar(String Id, INotification cb) throws RemoteException {
+    static void licitar(String Id, ILeiloes svc) throws RemoteException {
 
     }
 
-    static void initLeilao() throws RemoteException {
+    static void initLeilao(ILeiloes svc) throws RemoteException {
         System.out.println("Qual é a descricao do produto ?");
         String descricao = scanner.nextLine();
         System.out.println("Qual é o preco do produto ?");
@@ -24,20 +23,9 @@ public class LeilaoOperations {
 
         String id = descricao + Math.random();
         SomeObject someObject = new SomeObject(id, descricao, preco);
+        Notifications notifications = new Notifications();
 
-        INotification notification = new INotification() {
-            @Override
-            public void sendNotification(String s) throws RemoteException {
-                System.out.println("\nA notification has arrived with the following information :\n" + s + "\n");
-            }
-        };
-
-
-
-        UnicastRemoteObject.exportObject(notification, 0);
-
-        ILeilao.initLeilao(someObject, notification);
-
+        UnicastRemoteObject.exportObject(notifications, 0);
+        svc.initLeilao(someObject, notifications);
     }
-
 }

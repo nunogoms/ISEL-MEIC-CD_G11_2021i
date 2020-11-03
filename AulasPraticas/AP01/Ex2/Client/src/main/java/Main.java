@@ -1,20 +1,18 @@
-import menu.MenuInterface;
-
-import java.io.IOException;
 import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 public class Main {
-    private static String serverIP = "34.74.5.227";
-    private static int svcPort = 8000;
-    private static String registryName = "leiloesAlbeiola";
+    private static String serverIP = "localhost";
+    private static int svcPort = 7000;
+    private static String registryName = "RemServer";
 
     static final String QUIT_WORD = "EXIT", NUMBER = "num";
 
     public static void main(String[] args) {
         try {
-            if (args.length == 0 || args.length > 2 || args[0].contentEquals("info")) {
+           /* if (args.length == 0 || args.length > 2 || args[0].contentEquals("info")) {
                 System.out.println("Please call the program with the following arguments: #serverIP #serverPort");
                 System.exit(-1);
             }
@@ -23,13 +21,21 @@ public class Main {
                 System.out.println("It will be used the default port:" + svcPort);
             } else {
                 svcPort = Integer.parseInt(args[1]);
-            }
+            }*/
 
             // lookup RMI server in registry
             Registry registry = LocateRegistry.getRegistry(serverIP, svcPort);
             ILeiloes svc = (ILeiloes) registry.lookup(registryName);
 
-            LeilaoOperations leilaoOperations = new LeilaoOperations();
+            svc.getAllLeiloes();
+            LeilaoOperations.initLeilao(svc);
+
+
+        } catch (RemoteException | NotBoundException e) {
+            e.getCause();
+        }
+
+            /*LeilaoOperations leilaoOperations = new LeilaoOperations();
 
             MenuInterface userInterface = new MenuInterface();
             addMenuEntries(userInterface);
@@ -54,6 +60,6 @@ public class Main {
         // .addMenuObject(" : Delete a VM instance", MenuOperations::deleteVM);
 
     }
-
-
+*/
+    }
 }
