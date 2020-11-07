@@ -26,7 +26,7 @@ public class RMIClient {
         Reply reply = svc.playGame(bet);
 
         System.out.println("Number of plays - " + reply.getNtries());
-        System.out.println("Thin equals to - " + reply.getThing());
+        System.out.println("Thing equals to - " + reply.getThing());
         System.out.println("Is successful? - " + reply.isSuccess());
 
         return reply.isSuccess();

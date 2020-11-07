@@ -41,7 +41,7 @@ public class Main {
                 }
 
             } catch (RemoteException e) {
-                e.getCause();
+                System.out.println("A error happened:" + e.getMessage());
             }
         }
         System.out.println("Game is finished, all pearls have been found!");
