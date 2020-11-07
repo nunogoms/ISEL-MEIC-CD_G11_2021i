@@ -27,8 +27,9 @@ public class Main {
             Registry registry = LocateRegistry.getRegistry(serverIP, svcPort);
             ILeiloes svc = (ILeiloes) registry.lookup(registryName);
 
-            LeilaoOperations.initLeilao(svc);
-            svc.getAllLeiloes();
+            //LeilaoOperations.initLeilao(svc);
+            LeilaoOperations.getAllLeiloes(svc);
+            LeilaoOperations.licitar("Carro0.6640992714478156", svc);
 
         } catch (RemoteException | NotBoundException e) {
             e.getCause();

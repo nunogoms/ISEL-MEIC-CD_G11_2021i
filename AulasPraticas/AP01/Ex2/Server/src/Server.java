@@ -48,21 +48,22 @@ public class Server implements ILeiloes {
     @Override
     public void licitar(String id, float value, INotification cb) throws RemoteException {
 
-        //COMEÇEM A REZAR QUANDO CHEGAR AQUI!
-        leiloes.entrySet()
+        Optional<SomeObject> leilao = leiloes.values()
                 .stream()
-                .filter(entry -> entry.getValue().getId().equals(id))
-                .findFirst()
-                .ifPresentOrElse(obj -> obj.getValue().setValue(value), () -> {
+                .filter(someObject -> someObject.getId().equals(id))
+                .findFirst();
 
-                    try {
-                        cb.sendNotification("Leilao com id " + id + " nao encontrado!");
+        try {
+            if (leilao.isPresent()) {
+                leilao.get().setValue(value);
+                cb.sendNotification("Licitacao guardada com sucesso!");
 
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
-                });
+            } else {
+                cb.sendNotification("Leilao com id " + id + " nao encontrado!");
+            }
 
-        cb.sendNotification("Licitacao guardada com sucesso!");
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 }
