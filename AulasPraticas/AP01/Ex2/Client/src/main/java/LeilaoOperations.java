@@ -5,23 +5,20 @@ import java.util.stream.Stream;
 
 public class LeilaoOperations {
     private static Scanner scanner = new Scanner(System.in);
+    private static final int EXPORT_OBJECT_PORT = 0;
 
-    public static void getAllLeiloes(ILeiloes svc) {
+    public static void getAllLeiloes(ILeiloes svc) throws RemoteException {
 
         System.out.println("Carregando todos os leiloes...\n");
 
-        try {
-            SomeObject[] allLeiloes = svc.getAllLeiloes();
-            Stream.of(allLeiloes).forEach((leilao) -> {
-                System.out.println("    Leilao : #" + leilao.id);
-                System.out.println("    Valor : " + leilao.value);
-                System.out.println("    Descricao : " + leilao.description);
-                System.out.println();
-            });
+        SomeObject[] allLeiloes = svc.getAllLeiloes();
 
-        } catch (RemoteException e) {
-            System.out.println("Não foi possivel encontrar os leiloes devido a erro :\n" + e);
-        }
+        Stream.of(allLeiloes).forEach((leilao) -> {
+            System.out.println("    Leilao : #" + leilao.id);
+            System.out.println("    Valor : " + leilao.value);
+            System.out.println("    Descricao : " + leilao.description);
+            System.out.println();
+        });
     }
 
     static void licitar(String id, ILeiloes svc) throws RemoteException {
@@ -30,12 +27,13 @@ public class LeilaoOperations {
         float value = scanner.nextFloat();
 
         Notifications notification = new Notifications();
-        UnicastRemoteObject.exportObject(notification, 0);
+        UnicastRemoteObject.exportObject(notification, EXPORT_OBJECT_PORT);
         svc.licitar(id, value, notification);
     }
 
     static void initLeilao(ILeiloes svc) throws RemoteException {
         System.out.println("Qual é a descricao do produto ?");
+        scanner.nextLine();
         String descricao = scanner.nextLine();
         System.out.println("Qual é o preco do produto ?");
         float preco = scanner.nextFloat();
@@ -44,7 +42,7 @@ public class LeilaoOperations {
         SomeObject someObject = new SomeObject(id, descricao, preco);
         Notifications notifications = new Notifications();
 
-        UnicastRemoteObject.exportObject(notifications, 0);
+        UnicastRemoteObject.exportObject(notifications, EXPORT_OBJECT_PORT);
         svc.initLeilao(someObject, notifications);
     }
 }
