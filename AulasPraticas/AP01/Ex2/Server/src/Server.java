@@ -49,7 +49,7 @@ public class Server implements ILeiloes{
             allLeiloes.add(new SomeObject(key, leiloes.get(key).getDescription(), leiloes.get(key).getValue()));
         }
 
-        return (SomeObject[]) allLeiloes.toArray();
+        return allLeiloes.toArray(new SomeObject[0]);
     }
 
     @Override

@@ -27,9 +27,8 @@ public class Main {
             Registry registry = LocateRegistry.getRegistry(serverIP, svcPort);
             ILeiloes svc = (ILeiloes) registry.lookup(registryName);
 
-            svc.getAllLeiloes();
             LeilaoOperations.initLeilao(svc);
-
+            svc.getAllLeiloes();
 
         } catch (RemoteException | NotBoundException e) {
             e.getCause();
