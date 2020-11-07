@@ -28,12 +28,14 @@ public class Server implements ILeiloes {
             leiloes = new HashMap<>();
 
         } catch (RemoteException e) {
-            e.getCause();
+            printError(e);
         }
     }
 
     @Override
     public void initLeilao(SomeObject objLei, INotification cb) throws RemoteException {
+        // Faz-se um id para cada leilao para facilitar encontrar cada um deles. Nao e tido em conta
+        // quando sao removidos leiloes
         leiloes.put(counter++, objLei);
         cb.sendNotification("Leilao iniciado com sucesso!");
     }
@@ -48,6 +50,9 @@ public class Server implements ILeiloes {
     @Override
     public void licitar(String id, float value, INotification cb) throws RemoteException {
 
+        /**
+         * Itera por todos os leiloes e encontra o que o cliente pediu, e manda notificacao caso esteja errada ou correta
+         */
         Optional<SomeObject> leilao = leiloes.values()
                 .stream()
                 .filter(someObject -> someObject.getId().equals(id))
@@ -59,11 +64,16 @@ public class Server implements ILeiloes {
                 cb.sendNotification("Licitacao guardada com sucesso!");
 
             } else {
+                //Manda erro para o cliente caso não seja encontradp o leilao
                 cb.sendNotification("Leilao com id " + id + " nao encontrado!");
             }
 
         } catch (RemoteException e) {
-            e.printStackTrace();
+           printError(e);
         }
+    }
+
+    private static void printError(Exception e){
+        System.out.println("Foi encontrado um erro no servidor :" + e);
     }
 }
