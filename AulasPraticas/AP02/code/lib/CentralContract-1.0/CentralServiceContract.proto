@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "centralstubs";
+
+package centralservice; // package do proto
+
+// serviço com duas operações
+service CentralService {
+    rpc payment(Track) returns (Tariff);
+}
+
+message Track {
+    int32 group=1;  // Nº do grupo de CD
+    int32 inPoint=2; // Numero da entrada
+    int32 outPoint=3;   // Numero da saida
+}
+
+message Tariff {
+    float value=1;
+}
