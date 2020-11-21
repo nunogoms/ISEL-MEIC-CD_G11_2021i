@@ -16,6 +16,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private FinalPoint() {
+    id_ = "";
   }
 
   @java.lang.Override
@@ -48,7 +49,13 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 8: {
+          case 10: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            id_ = s;
+            break;
+          }
+          case 16: {
 
             outPoint_ = input.readInt32();
             break;
@@ -85,14 +92,58 @@ private static final long serialVersionUID = 0L;
             rpcstubs.FinalPoint.class, rpcstubs.FinalPoint.Builder.class);
   }
 
-  public static final int OUTPOINT_FIELD_NUMBER = 1;
+  public static final int ID_FIELD_NUMBER = 1;
+  private volatile java.lang.Object id_;
+  /**
+   * <pre>
+   *matricula do veículo
+   * </pre>
+   *
+   * <code>string Id = 1;</code>
+   * @return The id.
+   */
+  public java.lang.String getId() {
+    java.lang.Object ref = id_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      id_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   *matricula do veículo
+   * </pre>
+   *
+   * <code>string Id = 1;</code>
+   * @return The bytes for id.
+   */
+  public com.google.protobuf.ByteString
+      getIdBytes() {
+    java.lang.Object ref = id_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      id_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int OUTPOINT_FIELD_NUMBER = 2;
   private int outPoint_;
   /**
    * <pre>
    * ponto de saída
    * </pre>
    *
-   * <code>int32 outPoint = 1;</code>
+   * <code>int32 outPoint = 2;</code>
    * @return The outPoint.
    */
   public int getOutPoint() {
@@ -113,8 +164,11 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
+    if (!getIdBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
+    }
     if (outPoint_ != 0) {
-      output.writeInt32(1, outPoint_);
+      output.writeInt32(2, outPoint_);
     }
     unknownFields.writeTo(output);
   }
@@ -125,9 +179,12 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
+    if (!getIdBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+    }
     if (outPoint_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(1, outPoint_);
+        .computeInt32Size(2, outPoint_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -144,6 +201,8 @@ private static final long serialVersionUID = 0L;
     }
     rpcstubs.FinalPoint other = (rpcstubs.FinalPoint) obj;
 
+    if (!getId()
+        .equals(other.getId())) return false;
     if (getOutPoint()
         != other.getOutPoint()) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
@@ -157,6 +216,8 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
+    hash = (37 * hash) + ID_FIELD_NUMBER;
+    hash = (53 * hash) + getId().hashCode();
     hash = (37 * hash) + OUTPOINT_FIELD_NUMBER;
     hash = (53 * hash) + getOutPoint();
     hash = (29 * hash) + unknownFields.hashCode();
@@ -292,6 +353,8 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
+      id_ = "";
+
       outPoint_ = 0;
 
       return this;
@@ -320,6 +383,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public rpcstubs.FinalPoint buildPartial() {
       rpcstubs.FinalPoint result = new rpcstubs.FinalPoint(this);
+      result.id_ = id_;
       result.outPoint_ = outPoint_;
       onBuilt();
       return result;
@@ -369,6 +433,10 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(rpcstubs.FinalPoint other) {
       if (other == rpcstubs.FinalPoint.getDefaultInstance()) return this;
+      if (!other.getId().isEmpty()) {
+        id_ = other.id_;
+        onChanged();
+      }
       if (other.getOutPoint() != 0) {
         setOutPoint(other.getOutPoint());
       }
@@ -401,13 +469,109 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
+    private java.lang.Object id_ = "";
+    /**
+     * <pre>
+     *matricula do veículo
+     * </pre>
+     *
+     * <code>string Id = 1;</code>
+     * @return The id.
+     */
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        id_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     *matricula do veículo
+     * </pre>
+     *
+     * <code>string Id = 1;</code>
+     * @return The bytes for id.
+     */
+    public com.google.protobuf.ByteString
+        getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        id_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     *matricula do veículo
+     * </pre>
+     *
+     * <code>string Id = 1;</code>
+     * @param value The id to set.
+     * @return This builder for chaining.
+     */
+    public Builder setId(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      id_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     *matricula do veículo
+     * </pre>
+     *
+     * <code>string Id = 1;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearId() {
+      
+      id_ = getDefaultInstance().getId();
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     *matricula do veículo
+     * </pre>
+     *
+     * <code>string Id = 1;</code>
+     * @param value The bytes for id to set.
+     * @return This builder for chaining.
+     */
+    public Builder setIdBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      id_ = value;
+      onChanged();
+      return this;
+    }
+
     private int outPoint_ ;
     /**
      * <pre>
      * ponto de saída
      * </pre>
      *
-     * <code>int32 outPoint = 1;</code>
+     * <code>int32 outPoint = 2;</code>
      * @return The outPoint.
      */
     public int getOutPoint() {
@@ -418,7 +582,7 @@ private static final long serialVersionUID = 0L;
      * ponto de saída
      * </pre>
      *
-     * <code>int32 outPoint = 1;</code>
+     * <code>int32 outPoint = 2;</code>
      * @param value The outPoint to set.
      * @return This builder for chaining.
      */
@@ -433,7 +597,7 @@ private static final long serialVersionUID = 0L;
      * ponto de saída
      * </pre>
      *
-     * <code>int32 outPoint = 1;</code>
+     * <code>int32 outPoint = 2;</code>
      * @return This builder for chaining.
      */
     public Builder clearOutPoint() {

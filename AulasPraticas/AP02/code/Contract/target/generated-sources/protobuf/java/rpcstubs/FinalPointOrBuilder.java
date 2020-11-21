@@ -9,10 +9,30 @@ public interface FinalPointOrBuilder extends
 
   /**
    * <pre>
+   *matricula do veículo
+   * </pre>
+   *
+   * <code>string Id = 1;</code>
+   * @return The id.
+   */
+  java.lang.String getId();
+  /**
+   * <pre>
+   *matricula do veículo
+   * </pre>
+   *
+   * <code>string Id = 1;</code>
+   * @return The bytes for id.
+   */
+  com.google.protobuf.ByteString
+      getIdBytes();
+
+  /**
+   * <pre>
    * ponto de saída
    * </pre>
    *
-   * <code>int32 outPoint = 1;</code>
+   * <code>int32 outPoint = 2;</code>
    * @return The outPoint.
    */
   int getOutPoint();

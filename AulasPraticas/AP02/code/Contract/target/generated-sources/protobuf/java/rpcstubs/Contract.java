@@ -49,15 +49,15 @@ public final class Contract {
   static {
     java.lang.String[] descriptorData = {
       "\n\016contract.proto\022\013baseservice\"\006\n\004Void\"&\n" +
-      "\007Initial\022\n\n\002Id\030\001 \001(\t\022\017\n\007inPoint\030\002 \001(\005\"\036\n" +
-      "\nFinalPoint\022\020\n\010outPoint\030\001 \001(\005\"\030\n\007Payment" +
-      "\022\r\n\005value\030\001 \001(\002\"&\n\007WarnMsg\022\n\n\002Id\030\001 \001(\t\022\017" +
-      "\n\007warning\030\002 \001(\t2\265\001\n\016CentralService\0220\n\005En" +
-      "ter\022\024.baseservice.Initial\032\021.baseservice." +
-      "Void\0229\n\007Warning\022\024.baseservice.WarnMsg\032\024." +
-      "baseservice.WarnMsg(\0010\001\0226\n\005Leave\022\027.bases" +
-      "ervice.FinalPoint\032\024.baseservice.PaymentB" +
-      "\014\n\010rpcstubsP\001b\006proto3"
+      "\007Initial\022\n\n\002Id\030\001 \001(\t\022\017\n\007inPoint\030\002 \001(\005\"*\n" +
+      "\nFinalPoint\022\n\n\002Id\030\001 \001(\t\022\020\n\010outPoint\030\002 \001(" +
+      "\005\"\030\n\007Payment\022\r\n\005value\030\001 \001(\002\"&\n\007WarnMsg\022\n" +
+      "\n\002Id\030\001 \001(\t\022\017\n\007warning\030\002 \001(\t2\265\001\n\016ControlS" +
+      "ervice\0220\n\005Enter\022\024.baseservice.Initial\032\021." +
+      "baseservice.Void\0229\n\007Warning\022\024.baseservic" +
+      "e.WarnMsg\032\024.baseservice.WarnMsg(\0010\001\0226\n\005L" +
+      "eave\022\027.baseservice.FinalPoint\032\024.baseserv" +
+      "ice.PaymentB\014\n\010rpcstubsP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -80,7 +80,7 @@ public final class Contract {
     internal_static_baseservice_FinalPoint_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_baseservice_FinalPoint_descriptor,
-        new java.lang.String[] { "OutPoint", });
+        new java.lang.String[] { "Id", "OutPoint", });
     internal_static_baseservice_Payment_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_baseservice_Payment_fieldAccessorTable = new
