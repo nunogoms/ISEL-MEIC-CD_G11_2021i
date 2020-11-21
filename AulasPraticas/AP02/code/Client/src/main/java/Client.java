@@ -1,42 +1,55 @@
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
+import rpcstubs.ControlServiceGrpc;
+import ui.MenuInterface;
+
+import java.util.Scanner;
+
 public class Client {
 	static String svcIP="35.230.146.225";
 	static int svcPort=6000;
 
+	private static final MenuInterface userInterface = new MenuInterface();
+	private static final Scanner scan = new Scanner(System.in);
+
 	public static void main(String[] args) {
-
+		Operations operations = null;
 		try {
-			ManagedChannel channel = ManagedChannelBuilder
-					.forAddress(svcIP, svcPort)
-					.usePlaintext().build();
+			ManagedChannel channel = ManagedChannelBuilder.forAddress(svcIP, svcPort).usePlaintext().build();
 			// call pingServer
-			Msg request = Msg.newBuilder().setTxt("luis").build();
-			ServiceAulaGrpc.ServiceAulaBlockingStub blockingStub = 	ServiceAulaGrpc.newBlockingStub(channel);
-			Msg rpy = blockingStub.pingServer(request);
-			System.out.println("result =" + rpy.getTxt());
 
-			//            // call find primes
-			ServiceAulaGrpc.ServiceAulaStub noBlockStub=ServiceAulaGrpc.newStub(channel);
-			PrimesObserver primesObserver = new PrimesObserver();
-			noBlockStub.findPrimes(
-					SerieOfPrimes.newBuilder()
-							.setNumberOfPrimes(500)
-							.setStartNumber(1).build(),
-					primesObserver);
+			ControlServiceGrpc.ControlServiceStub controlServiceStub = ControlServiceGrpc.newStub(channel);
 
+			System.out.println("What is your car matricula ?");
+			String matricula = scan.next();
 
-			while (!primesObserver.isCompleted()) {
+			operations = new Operations(controlServiceStub, matricula);
+			addMenuEntries(userInterface, operations);
 
-				System.out.println("doing something");
-				Thread.sleep(2000);
+			try {
 
+				while (!MenuInterface.isShuttingDown) {
+					try {
+						userInterface.printAndGetRunnable().run();
+					} catch (Exception ex) {
+						System.out.println("Error executing operations!");
+						ex.printStackTrace();
+					}
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
 			}
 
-			System.out.println("press enter to exit");
-			Scanner scan=new Scanner(System.in); scan.nextLine();
-		}catch(Exception ex) {
-			ex.printStackTrace();
+		}finally {
+			if(operations!=null)operations.quitProgram(true);
 		}
-
-
 	}
+
+	private static void addMenuEntries(MenuInterface menu, Operations operations) {
+		menu.addMenuObject(" : Enter Access Point", operations::enterAccessPoint)
+				.addMenuObject(" : Leave Access Point", operations::leaveAccessPoint)
+				.addMenuObject(" : Send a warning", operations::sendWarning)
+				.addMenuObject(" : Quit Program", () -> operations.quitProgram(false));
+	}
+
 }
