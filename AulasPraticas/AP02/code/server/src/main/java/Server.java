@@ -3,50 +3,92 @@ import centralstubs.Tariff;
 import centralstubs.Track;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
-import observers.TariffObserver;
+import rpcstubs.*;
+import rpcstubs.Void;
 
-public class Server {
-	static String svcIP = "35.230.146.225"; //cmd
-	static int svcPort = 7500; //cmd
-	static int groupID = 25;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
-	public static void main(String[] args) {
-		//TODO add static logger
-		try {
-			ManagedChannel channel = ManagedChannelBuilder.forAddress(svcIP, svcPort).usePlaintext().build();
+public class Server extends ControlServiceGrpc.ControlServiceImplBase {
 
-			//            // call find primes
-			CentralServiceGrpc.CentralServiceBlockingStub blockStub = CentralServiceGrpc.newBlockingStub(channel);
+    private static final String SVC_IP = "35.230.146.225";
+    private static final int REGISTER_PORT = 7000;
+    private static final int SVC_PORT = 7500;
+    private static final int GROUP_ID = 25;
+    private static CentralServiceGrpc.CentralServiceBlockingStub blockStub;
+    private static Map<String, Integer> trips = new HashMap<>();
 
-			Track build = Track.newBuilder().setInPoint(1).setOutPoint(4).setGroup(groupID).build();
+    public static void main(String[] args) {
 
-			Tariff payment = blockStub.payment(build);
+        try {
+            ManagedChannel channel = ManagedChannelBuilder.forAddress(SVC_IP, SVC_PORT).usePlaintext().build();
+            blockStub = CentralServiceGrpc.newBlockingStub(channel);
 
-			System.out.println();
+            io.grpc.Server server = ServerBuilder.forPort(REGISTER_PORT).addService(new Server()).build();
+            server.start();
 
+            Scanner scan = new Scanner(System.in);
+            scan.nextLine();
 
-			/*
-			PrimesObserver primesObserver = new PrimesObserver();
-			blockStub.findPrimes(
-					SerieOfPrimes.newBuilder()
-							.setNumberOfPrimes(500)
-							.setStartNumber(1).build(),
-					primesObserver);
+        } catch (IOException exception) {
+            exception.getMessage();
+            exception.printStackTrace();
+        }
+    }
 
+    @Override
+    public void enter(Initial request, StreamObserver<Void> responseObserver) {
 
-			while (!primesObserver.isCompleted()) {
+        try {
 
-				System.out.println("doing something");
-				Thread.sleep(2000);
+            int inPoint = request.getInPoint();
+            String id = request.getId();
 
-			}
+            trips.put(id, inPoint);
 
-			System.out.println("press enter to exit");
-			Scanner scan=new Scanner(System.in); scan.nextLine();
-			*/
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}
+            //Only need to signal that the operation was successfully completed
+            responseObserver.onCompleted();
+
+        } catch (Throwable throwable) {
+            responseObserver.onError(throwable);
+        }
+    }
+
+    @Override
+    public StreamObserver<WarnMsg> warning(StreamObserver<WarnMsg> responseObserver) {
+
+        try {
+            
+        } catch (Throwable throwable) {
+            responseObserver.onError(throwable);
+        }
+
+        return null;
+    }
+
+    @Override
+    public void leave(FinalPoint request, StreamObserver<Payment> responseObserver) {
+
+        try {
+
+            int outpoint = request.getOutPoint();
+            String id = request.getId();
+
+            Track track = Track.newBuilder().setInPoint(trips.get(id)).setOutPoint(outpoint).setGroup(GROUP_ID).build();
+            Tariff tariff = blockStub.payment(track);
+            Payment payment = Payment.newBuilder().setValue(tariff.getValue()).build();
+
+            responseObserver.onNext(payment);
+            responseObserver.onCompleted();
+
+            trips.remove(id);
+
+        } catch (Throwable throwable) {
+            responseObserver.onError(throwable);
+        }
+    }
 }
