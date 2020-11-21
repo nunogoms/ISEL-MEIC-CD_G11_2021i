@@ -24,32 +24,32 @@ public final class CentralServiceGrpc {
 
   private CentralServiceGrpc() {}
 
-  public static final String SERVICE_NAME = "serverImpl.CentralService";
+  public static final String SERVICE_NAME = "baseservice.CentralService";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<rpcstubs.Contract.Initial,
-      rpcstubs.Contract.Void> getEnterMethod;
+  private static volatile io.grpc.MethodDescriptor<rpcstubs.Initial,
+      rpcstubs.Void> getEnterMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "Enter",
-      requestType = rpcstubs.Contract.Initial.class,
-      responseType = rpcstubs.Contract.Void.class,
+      requestType = rpcstubs.Initial.class,
+      responseType = rpcstubs.Void.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<rpcstubs.Contract.Initial,
-      rpcstubs.Contract.Void> getEnterMethod() {
-    io.grpc.MethodDescriptor<rpcstubs.Contract.Initial, rpcstubs.Contract.Void> getEnterMethod;
+  public static io.grpc.MethodDescriptor<rpcstubs.Initial,
+      rpcstubs.Void> getEnterMethod() {
+    io.grpc.MethodDescriptor<rpcstubs.Initial, rpcstubs.Void> getEnterMethod;
     if ((getEnterMethod = CentralServiceGrpc.getEnterMethod) == null) {
       synchronized (CentralServiceGrpc.class) {
         if ((getEnterMethod = CentralServiceGrpc.getEnterMethod) == null) {
           CentralServiceGrpc.getEnterMethod = getEnterMethod =
-              io.grpc.MethodDescriptor.<rpcstubs.Contract.Initial, rpcstubs.Contract.Void>newBuilder()
+              io.grpc.MethodDescriptor.<rpcstubs.Initial, rpcstubs.Void>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Enter"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  rpcstubs.Contract.Initial.getDefaultInstance()))
+                  rpcstubs.Initial.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  rpcstubs.Contract.Void.getDefaultInstance()))
+                  rpcstubs.Void.getDefaultInstance()))
               .setSchemaDescriptor(new CentralServiceMethodDescriptorSupplier("Enter"))
               .build();
         }
@@ -58,29 +58,29 @@ public final class CentralServiceGrpc {
     return getEnterMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<rpcstubs.Contract.WarnMsg,
-      rpcstubs.Contract.WarnMsg> getWarningMethod;
+  private static volatile io.grpc.MethodDescriptor<rpcstubs.WarnMsg,
+      rpcstubs.WarnMsg> getWarningMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "Warning",
-      requestType = rpcstubs.Contract.WarnMsg.class,
-      responseType = rpcstubs.Contract.WarnMsg.class,
+      requestType = rpcstubs.WarnMsg.class,
+      responseType = rpcstubs.WarnMsg.class,
       methodType = io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
-  public static io.grpc.MethodDescriptor<rpcstubs.Contract.WarnMsg,
-      rpcstubs.Contract.WarnMsg> getWarningMethod() {
-    io.grpc.MethodDescriptor<rpcstubs.Contract.WarnMsg, rpcstubs.Contract.WarnMsg> getWarningMethod;
+  public static io.grpc.MethodDescriptor<rpcstubs.WarnMsg,
+      rpcstubs.WarnMsg> getWarningMethod() {
+    io.grpc.MethodDescriptor<rpcstubs.WarnMsg, rpcstubs.WarnMsg> getWarningMethod;
     if ((getWarningMethod = CentralServiceGrpc.getWarningMethod) == null) {
       synchronized (CentralServiceGrpc.class) {
         if ((getWarningMethod = CentralServiceGrpc.getWarningMethod) == null) {
           CentralServiceGrpc.getWarningMethod = getWarningMethod =
-              io.grpc.MethodDescriptor.<rpcstubs.Contract.WarnMsg, rpcstubs.Contract.WarnMsg>newBuilder()
+              io.grpc.MethodDescriptor.<rpcstubs.WarnMsg, rpcstubs.WarnMsg>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Warning"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  rpcstubs.Contract.WarnMsg.getDefaultInstance()))
+                  rpcstubs.WarnMsg.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  rpcstubs.Contract.WarnMsg.getDefaultInstance()))
+                  rpcstubs.WarnMsg.getDefaultInstance()))
               .setSchemaDescriptor(new CentralServiceMethodDescriptorSupplier("Warning"))
               .build();
         }
@@ -89,29 +89,29 @@ public final class CentralServiceGrpc {
     return getWarningMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<rpcstubs.Contract.FinalPoint,
-      rpcstubs.Contract.Payment> getLeaveMethod;
+  private static volatile io.grpc.MethodDescriptor<rpcstubs.FinalPoint,
+      rpcstubs.Payment> getLeaveMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "Leave",
-      requestType = rpcstubs.Contract.FinalPoint.class,
-      responseType = rpcstubs.Contract.Payment.class,
+      requestType = rpcstubs.FinalPoint.class,
+      responseType = rpcstubs.Payment.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<rpcstubs.Contract.FinalPoint,
-      rpcstubs.Contract.Payment> getLeaveMethod() {
-    io.grpc.MethodDescriptor<rpcstubs.Contract.FinalPoint, rpcstubs.Contract.Payment> getLeaveMethod;
+  public static io.grpc.MethodDescriptor<rpcstubs.FinalPoint,
+      rpcstubs.Payment> getLeaveMethod() {
+    io.grpc.MethodDescriptor<rpcstubs.FinalPoint, rpcstubs.Payment> getLeaveMethod;
     if ((getLeaveMethod = CentralServiceGrpc.getLeaveMethod) == null) {
       synchronized (CentralServiceGrpc.class) {
         if ((getLeaveMethod = CentralServiceGrpc.getLeaveMethod) == null) {
           CentralServiceGrpc.getLeaveMethod = getLeaveMethod =
-              io.grpc.MethodDescriptor.<rpcstubs.Contract.FinalPoint, rpcstubs.Contract.Payment>newBuilder()
+              io.grpc.MethodDescriptor.<rpcstubs.FinalPoint, rpcstubs.Payment>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Leave"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  rpcstubs.Contract.FinalPoint.getDefaultInstance()))
+                  rpcstubs.FinalPoint.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  rpcstubs.Contract.Payment.getDefaultInstance()))
+                  rpcstubs.Payment.getDefaultInstance()))
               .setSchemaDescriptor(new CentralServiceMethodDescriptorSupplier("Leave"))
               .build();
         }
@@ -173,8 +173,8 @@ public final class CentralServiceGrpc {
      * Entrar na estrada
      * </pre>
      */
-    public void enter(rpcstubs.Contract.Initial request,
-        io.grpc.stub.StreamObserver<rpcstubs.Contract.Void> responseObserver) {
+    public void enter(rpcstubs.Initial request,
+        io.grpc.stub.StreamObserver<rpcstubs.Void> responseObserver) {
       asyncUnimplementedUnaryCall(getEnterMethod(), responseObserver);
     }
 
@@ -183,8 +183,8 @@ public final class CentralServiceGrpc {
      * emissão/receção de eventos
      * </pre>
      */
-    public io.grpc.stub.StreamObserver<rpcstubs.Contract.WarnMsg> warning(
-        io.grpc.stub.StreamObserver<rpcstubs.Contract.WarnMsg> responseObserver) {
+    public io.grpc.stub.StreamObserver<rpcstubs.WarnMsg> warning(
+        io.grpc.stub.StreamObserver<rpcstubs.WarnMsg> responseObserver) {
       return asyncUnimplementedStreamingCall(getWarningMethod(), responseObserver);
     }
 
@@ -193,8 +193,8 @@ public final class CentralServiceGrpc {
      * Sair da estrada
      * </pre>
      */
-    public void leave(rpcstubs.Contract.FinalPoint request,
-        io.grpc.stub.StreamObserver<rpcstubs.Contract.Payment> responseObserver) {
+    public void leave(rpcstubs.FinalPoint request,
+        io.grpc.stub.StreamObserver<rpcstubs.Payment> responseObserver) {
       asyncUnimplementedUnaryCall(getLeaveMethod(), responseObserver);
     }
 
@@ -204,22 +204,22 @@ public final class CentralServiceGrpc {
             getEnterMethod(),
             asyncUnaryCall(
               new MethodHandlers<
-                rpcstubs.Contract.Initial,
-                rpcstubs.Contract.Void>(
+                rpcstubs.Initial,
+                rpcstubs.Void>(
                   this, METHODID_ENTER)))
           .addMethod(
             getWarningMethod(),
             asyncBidiStreamingCall(
               new MethodHandlers<
-                rpcstubs.Contract.WarnMsg,
-                rpcstubs.Contract.WarnMsg>(
+                rpcstubs.WarnMsg,
+                rpcstubs.WarnMsg>(
                   this, METHODID_WARNING)))
           .addMethod(
             getLeaveMethod(),
             asyncUnaryCall(
               new MethodHandlers<
-                rpcstubs.Contract.FinalPoint,
-                rpcstubs.Contract.Payment>(
+                rpcstubs.FinalPoint,
+                rpcstubs.Payment>(
                   this, METHODID_LEAVE)))
           .build();
     }
@@ -244,8 +244,8 @@ public final class CentralServiceGrpc {
      * Entrar na estrada
      * </pre>
      */
-    public void enter(rpcstubs.Contract.Initial request,
-        io.grpc.stub.StreamObserver<rpcstubs.Contract.Void> responseObserver) {
+    public void enter(rpcstubs.Initial request,
+        io.grpc.stub.StreamObserver<rpcstubs.Void> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getEnterMethod(), getCallOptions()), request, responseObserver);
     }
@@ -255,8 +255,8 @@ public final class CentralServiceGrpc {
      * emissão/receção de eventos
      * </pre>
      */
-    public io.grpc.stub.StreamObserver<rpcstubs.Contract.WarnMsg> warning(
-        io.grpc.stub.StreamObserver<rpcstubs.Contract.WarnMsg> responseObserver) {
+    public io.grpc.stub.StreamObserver<rpcstubs.WarnMsg> warning(
+        io.grpc.stub.StreamObserver<rpcstubs.WarnMsg> responseObserver) {
       return asyncBidiStreamingCall(
           getChannel().newCall(getWarningMethod(), getCallOptions()), responseObserver);
     }
@@ -266,8 +266,8 @@ public final class CentralServiceGrpc {
      * Sair da estrada
      * </pre>
      */
-    public void leave(rpcstubs.Contract.FinalPoint request,
-        io.grpc.stub.StreamObserver<rpcstubs.Contract.Payment> responseObserver) {
+    public void leave(rpcstubs.FinalPoint request,
+        io.grpc.stub.StreamObserver<rpcstubs.Payment> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getLeaveMethod(), getCallOptions()), request, responseObserver);
     }
@@ -292,7 +292,7 @@ public final class CentralServiceGrpc {
      * Entrar na estrada
      * </pre>
      */
-    public rpcstubs.Contract.Void enter(rpcstubs.Contract.Initial request) {
+    public rpcstubs.Void enter(rpcstubs.Initial request) {
       return blockingUnaryCall(
           getChannel(), getEnterMethod(), getCallOptions(), request);
     }
@@ -302,7 +302,7 @@ public final class CentralServiceGrpc {
      * Sair da estrada
      * </pre>
      */
-    public rpcstubs.Contract.Payment leave(rpcstubs.Contract.FinalPoint request) {
+    public rpcstubs.Payment leave(rpcstubs.FinalPoint request) {
       return blockingUnaryCall(
           getChannel(), getLeaveMethod(), getCallOptions(), request);
     }
@@ -327,8 +327,8 @@ public final class CentralServiceGrpc {
      * Entrar na estrada
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<rpcstubs.Contract.Void> enter(
-        rpcstubs.Contract.Initial request) {
+    public com.google.common.util.concurrent.ListenableFuture<rpcstubs.Void> enter(
+        rpcstubs.Initial request) {
       return futureUnaryCall(
           getChannel().newCall(getEnterMethod(), getCallOptions()), request);
     }
@@ -338,8 +338,8 @@ public final class CentralServiceGrpc {
      * Sair da estrada
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<rpcstubs.Contract.Payment> leave(
-        rpcstubs.Contract.FinalPoint request) {
+    public com.google.common.util.concurrent.ListenableFuture<rpcstubs.Payment> leave(
+        rpcstubs.FinalPoint request) {
       return futureUnaryCall(
           getChannel().newCall(getLeaveMethod(), getCallOptions()), request);
     }
@@ -367,12 +367,12 @@ public final class CentralServiceGrpc {
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_ENTER:
-          serviceImpl.enter((rpcstubs.Contract.Initial) request,
-              (io.grpc.stub.StreamObserver<rpcstubs.Contract.Void>) responseObserver);
+          serviceImpl.enter((rpcstubs.Initial) request,
+              (io.grpc.stub.StreamObserver<rpcstubs.Void>) responseObserver);
           break;
         case METHODID_LEAVE:
-          serviceImpl.leave((rpcstubs.Contract.FinalPoint) request,
-              (io.grpc.stub.StreamObserver<rpcstubs.Contract.Payment>) responseObserver);
+          serviceImpl.leave((rpcstubs.FinalPoint) request,
+              (io.grpc.stub.StreamObserver<rpcstubs.Payment>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -386,7 +386,7 @@ public final class CentralServiceGrpc {
       switch (methodId) {
         case METHODID_WARNING:
           return (io.grpc.stub.StreamObserver<Req>) serviceImpl.warning(
-              (io.grpc.stub.StreamObserver<rpcstubs.Contract.WarnMsg>) responseObserver);
+              (io.grpc.stub.StreamObserver<rpcstubs.WarnMsg>) responseObserver);
         default:
           throw new AssertionError();
       }
