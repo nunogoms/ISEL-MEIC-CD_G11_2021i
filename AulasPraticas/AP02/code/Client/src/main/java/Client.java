@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Client {
 
-    static String svcIP = "localhost";
+    static String svcIP = "34.105.178.205";
     static int svcPort = 7000;
 
     //This variable is used only to provide the user with a navigable UI
