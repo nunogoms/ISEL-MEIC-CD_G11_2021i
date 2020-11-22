@@ -10,14 +10,14 @@ public class Operations {
 	private final Scanner scan = new Scanner(System.in);
 
 	private final ControlServiceGrpc.ControlServiceStub controlServiceStub;
-	private final String matricula;
+	private final String plate;
 
 	private boolean isOnTheRoad = true;
 	private StreamObserver<WarnMsg> warningObs;
 
-	public Operations(ControlServiceGrpc.ControlServiceStub controlServiceStub, String matricula) {
+	public Operations(ControlServiceGrpc.ControlServiceStub controlServiceStub, String plate) {
 		this.controlServiceStub = controlServiceStub;
-		this.matricula = matricula;
+		this.plate = plate;
 	}
 
 	public void quitProgram(boolean forceQuit) {
@@ -37,7 +37,7 @@ public class Operations {
 		System.out.println("What point are you entering at ?(number 1..5)");
 		int entryPoint = scan.nextInt();
 
-		Initial initialMsg = Initial.newBuilder().setId(matricula).setInPoint(entryPoint).build();
+		Initial initialMsg = Initial.newBuilder().setId(plate).setInPoint(entryPoint).build();
 
 		GenericObserver<Void> pointObserver = new GenericObserver<>("Entering access point");
 
@@ -48,10 +48,7 @@ public class Operations {
 		if (!pointObserver.wasError()) {
 			isOnTheRoad = true;
 
-			WarningServiceObserver warningServiceObserver = new WarningServiceObserver();
 
-			this.warningObs = controlServiceStub.warning(warningServiceObserver);
-			warningObs.onNext(WarnMsg.newBuilder().setId(matricula).setWarning(warningServiceObserver.getKeyId()).build());
 		}
 	}
 
@@ -61,7 +58,7 @@ public class Operations {
 
 		GenericObserver<Payment> pointObserver = new GenericObserver<>("Exiting access point");
 
-		FinalPoint finalPoint = FinalPoint.newBuilder().setId(matricula).setOutPoint(exitPoint).build();
+		FinalPoint finalPoint = FinalPoint.newBuilder().setId(plate).setOutPoint(exitPoint).build();
 
 		controlServiceStub.leave(finalPoint, pointObserver);
 
@@ -77,15 +74,35 @@ public class Operations {
 	}
 
 	public void sendWarning() {
+
 		if (!isOnTheRoad) {
 			System.out.println("You can only use this service if you are on our roads)");
 			return;
 		}
 
+		if(warningObs == null) {
+			WarningServiceObserver warningServiceObserver = new WarningServiceObserver();
+
+			this.warningObs = controlServiceStub.warning(warningServiceObserver);
+
+			while(warningServiceObserver.getKeyId() == null){
+
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+					return;
+				}
+			}
+			warningObs.onNext(WarnMsg.newBuilder().setId(plate).setWarning(warningServiceObserver.getKeyId()).build());
+
+		}
+
+		scan.nextLine();
 		System.out.println("What warning do you want to send ? ( Animals on the road, a fallen electricity post ...)");
 		String reason = scan.nextLine();
 
-		WarnMsg warnMsg = WarnMsg.newBuilder().setId(matricula).setWarning(reason).build();
+		WarnMsg warnMsg = WarnMsg.newBuilder().setId(plate).setWarning(reason).build();
 		warningObs.onNext(warnMsg);
 
 	}

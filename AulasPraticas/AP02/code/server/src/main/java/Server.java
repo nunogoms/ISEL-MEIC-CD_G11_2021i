@@ -5,13 +5,12 @@ import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
+import org.apache.commons.lang3.RandomStringUtils;
 import rpcstubs.*;
 import rpcstubs.Void;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Server extends ControlServiceGrpc.ControlServiceImplBase {
 
@@ -50,7 +49,7 @@ public class Server extends ControlServiceGrpc.ControlServiceImplBase {
 
             trips.put(id, inPoint);
 
-            //Only need to signal that the operation was successfully completed
+            responseObserver.onNext(Void.newBuilder().build());
             responseObserver.onCompleted();
 
         } catch (Throwable throwable) {
@@ -61,13 +60,19 @@ public class Server extends ControlServiceGrpc.ControlServiceImplBase {
     @Override
     public StreamObserver<WarnMsg> warning(StreamObserver<WarnMsg> responseObserver) {
 
+        String key = "";
+
         try {
-            
+
+            key = RandomStringUtils.random(4, true, true);
+            WarnMsg message = WarnMsg.newBuilder().setWarning(key).build();
+            responseObserver.onNext(message);
+
         } catch (Throwable throwable) {
             responseObserver.onError(throwable);
         }
 
-        return null;
+        return new WarningObserver(key, responseObserver);
     }
 
     @Override

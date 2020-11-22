@@ -26,7 +26,7 @@ public class GenericObserver<T> implements StreamObserver<T> {
 	@Override
 	public void onCompleted() {
 		System.out.println("The operation on " + objective + " was successfully completed");
-		return;
+		finished = true;
 	}
 
 	public boolean isFinished (){
