@@ -47,8 +47,11 @@ public class Operations {
 
 		if (!pointObserver.wasError()) {
 			isOnTheRoad = true;
-			this.warningObs = controlServiceStub.warning(new WarningServiceObserver());
-			warningObs.onNext(WarnMsg.newBuilder().setId(matricula).setWarning(matricula).build());
+
+			WarningServiceObserver warningServiceObserver = new WarningServiceObserver();
+
+			this.warningObs = controlServiceStub.warning(warningServiceObserver);
+			warningObs.onNext(WarnMsg.newBuilder().setId(matricula).setWarning(warningServiceObserver.getKeyId()).build());
 		}
 	}
 
