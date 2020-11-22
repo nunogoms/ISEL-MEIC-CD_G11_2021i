@@ -15,6 +15,8 @@ public class WarningObserver implements StreamObserver<WarnMsg> {
 
     @Override
     public void onNext(WarnMsg warnMsg) {
+
+        //Broadcast the warning message to all the clients, except for the one that sent the message
         if (observers.containsKey(warnMsg.getId())) {
             for (String key : observers.keySet()) {
                 if (!key.equals(driver_key)) {
@@ -23,6 +25,8 @@ public class WarningObserver implements StreamObserver<WarnMsg> {
             }
 
         } else {
+
+            //Associate the correct driver's id to the observer
             StreamObserver<WarnMsg> observer = observers.get(warnMsg.getWarning());
             observers.remove(warnMsg.getWarning());
             observers.put(warnMsg.getId(), observer);
@@ -32,6 +36,7 @@ public class WarningObserver implements StreamObserver<WarnMsg> {
 
     @Override
     public void onError(Throwable throwable) {
+        //Remove the driver's observer from the notifications list
         observers.remove(driver_key);
         System.out.println(throwable.getMessage());
     }

@@ -24,6 +24,8 @@ public class Server extends ControlServiceGrpc.ControlServiceImplBase {
     public static void main(String[] args) {
 
         try {
+
+            //Establish a connection to the Central Server and check that the Control Server is running
             ManagedChannel channel = ManagedChannelBuilder.forAddress(SVC_IP, SVC_PORT).usePlaintext().build();
             blockStub = CentralServiceGrpc.newBlockingStub(channel);
 
@@ -46,11 +48,14 @@ public class Server extends ControlServiceGrpc.ControlServiceImplBase {
 
         try {
 
+            //Gather the information about the point used to access the road
             int inPoint = request.getInPoint();
             String id = request.getId();
 
+            //Create the tuple with the client's id and the initial point
             trips.put(id, inPoint);
 
+            //Notify the client that the entry registry was successfully performed, giving him access to the warning operation
             responseObserver.onNext(Void.newBuilder().build());
             responseObserver.onCompleted();
 
@@ -65,7 +70,7 @@ public class Server extends ControlServiceGrpc.ControlServiceImplBase {
         String key = "";
 
         try {
-
+            //Generate a random key in order to obtain the client's real id
             key = RandomStringUtils.random(4, true, true);
             WarnMsg message = WarnMsg.newBuilder().setWarning(key).build();
             responseObserver.onNext(message);
@@ -74,6 +79,7 @@ public class Server extends ControlServiceGrpc.ControlServiceImplBase {
             responseObserver.onError(throwable);
         }
 
+        //Notify the client about the generated key, and send him an observer to create a communications channel
         return new WarningObserver(key, responseObserver);
     }
 
@@ -82,16 +88,20 @@ public class Server extends ControlServiceGrpc.ControlServiceImplBase {
 
         try {
 
+            //Gather the information about the point used to leave the road
             int outpoint = request.getOutPoint();
             String id = request.getId();
 
+            //Perform a request to the Central Server, passing the start and end point to obtain the payment value
             Track track = Track.newBuilder().setInPoint(trips.get(id)).setOutPoint(outpoint).setGroup(GROUP_ID).build();
             Tariff tariff = blockStub.payment(track);
             Payment payment = Payment.newBuilder().setValue(tariff.getValue()).build();
 
+            //Send the information to the client that he successfully leave the road and inform the value to pay
             responseObserver.onNext(payment);
             responseObserver.onCompleted();
 
+            //Remove the tuple previously created, since the user is no longer on the road
             trips.remove(id);
 
         } catch (Throwable throwable) {
