@@ -30,6 +30,8 @@ public class Server extends ControlServiceGrpc.ControlServiceImplBase {
             io.grpc.Server server = ServerBuilder.forPort(REGISTER_PORT).addService(new Server()).build();
             server.start();
 
+            System.out.println("Server online");
+
             Scanner scan = new Scanner(System.in);
             scan.nextLine();
 

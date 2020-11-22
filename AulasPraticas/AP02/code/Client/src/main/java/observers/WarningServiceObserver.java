@@ -3,7 +3,16 @@ package observers;
 import io.grpc.stub.StreamObserver;
 import rpcstubs.WarnMsg;
 
+/**
+ * This observer only works with the Type Warnmsg because, it has a different behaviour from the other types
+ */
 public class WarningServiceObserver implements StreamObserver<WarnMsg> {
+
+	/**
+	 * We keep this as a way to maintain the state of the current Observer since a keyID exchange is made so the server
+	 * 	can have the map with observers and plates
+	 */
+
 	private boolean hasSentId = false;
 	private String keyId = null;
 
